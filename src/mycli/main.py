@@ -14,6 +14,10 @@ def main() -> None:
 
     elif command == "remove":
         kremove(args)
+
+    elif command == "parse":
+        kparse(args)
+
     else:
         print(f"Unknown command: {command}")
 

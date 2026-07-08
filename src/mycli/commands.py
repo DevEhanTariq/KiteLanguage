@@ -1,5 +1,6 @@
 import os
 import shutil
+from mycli.parser import *
 
 class kinit:
     def __init__(self, arsg) -> None:
@@ -21,3 +22,8 @@ class kremove:
             print("Project removed!")
         else:
             print("Process cancelled!")
+
+class kparse:
+    def __init__(self, arsg) -> None:
+        parse(arsg)
+

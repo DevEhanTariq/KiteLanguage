@@ -1,0 +1,6 @@
+[project]
+name = "mycli"
+version = "1.0.0"
+
+[project.scripts]
+kite = "mycli.main:main"

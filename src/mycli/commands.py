@@ -1,29 +1,32 @@
 import os
 import shutil
-from mycli.parser import *
 
-class kinit:
-    def __init__(self, arsg) -> None:
-        self.direct = arsg[1]
-        os.mkdir(f"{self.direct}")
-        os.mkdir(f"{self.direct}/library")
-        with open(f"{self.direct}/main.ki", "w") as f:
+class kite_init:
+    def __init__(self, project_name) -> None:
+        self.project_name = project_name
+        os.mkdir(f"{self.project_name}")
+        os.mkdir(f"{self.project_name}/libraries")
+        with open(f"{self.project_name}/main.ki", "w") as f:
             pass
-        with open(f"{self.direct}/kiproject.toml", "w") as f:
+        with open(f"{self.project_name}/kiproject.toml", "w") as f:
             pass
         print("Kite project created!")
 
-class kremove:
-    def __init__(self, arsg) -> None:
-        self.direct = arsg[1]
-        yn = input("Do you really want to remove this project? [y/n]: ").lower()
-        if yn == "y":
-            shutil.rmtree(f"{self.direct}")
-            print("Project removed!")
-        else:
-            print("Process cancelled!")
+class kite_remove:
+    def __init__(self, project_name) -> None:
+        self.project_name = project_name
+        shutil.rmtree(f"{self.project_name}")
+        print("Project removed!")
 
-class kparse:
+class kite_build:
     def __init__(self, arsg) -> None:
-        parse(arsg)
-
+        self.command = arsg[1]
+        self.subcommand = arsg[2]
+        if self.command == "init":
+            kite_init(self.subcommand)
+        elif self.command == "remove":
+            kite_remove(self.subcommand)
+            
+class kite_debug:
+    def __init__(self, arsg) -> None:
+        self.arsg = arsg

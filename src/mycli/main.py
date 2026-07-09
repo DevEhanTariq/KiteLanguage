@@ -9,15 +9,8 @@ def main() -> None:
         print("Usage: mycli <command>")
         exit()
 
-    if command == "init":
-        kinit(args)
-
-    elif command == "remove":
-        kremove(args)
-
-    elif command == "parse":
-        kparse(args)
-
+    if command == "build":
+        kite_build(args)
     else:
         print(f"Unknown command: {command}")
 

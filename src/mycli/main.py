@@ -11,6 +11,8 @@ def main() -> None:
 
     if command == "build":
         kite_build(args)
+    elif command == "debug":
+        kite_debug(args)
     else:
         print(f"Unknown command: {command}")
 

@@ -1,7 +1,9 @@
 import os
 import shutil
 from .lexer import *
+from .parser import *
 import subprocess
+
 dir = os.getcwd()
 
 class kite_build:
@@ -14,6 +16,8 @@ class kite_build:
             self.kite_build_init(self.subcommand)
         elif self.command == "remove":
             self.kite_build_remove(self.subcommand)
+        elif self.command == "compile":
+            self.kite_build_compile(self.subcommand)
 
     def kite_build_remove(self, project_name) -> None:
         self.project_name = project_name
@@ -29,7 +33,7 @@ class kite_build:
         os.mkdir(f"{self.project_name}/library")
         os.mkdir(f"{self.project_name}/src")
         subprocess.run(
-            ["cargo", "new", f"{self.project_name}_kite_cargo_project"],
+            ["cargo", "new", "cargo_project"],
             cwd=self.dir+f"/{self.project_name}/build/cargo",
         )
         with open(f"{self.project_name}/src/main.ki", "w") as f:
@@ -38,19 +42,30 @@ class kite_build:
             pass
         print("===========================\nKite project created!")
 
+    def kite_build_compile(self, filename) -> None:
+        file = open(f"src/{filename}", "r").readlines()
+        lexer(file, filename)
+        Parser()
+
 class kite_debug:
     def __init__(self, arsg) -> None:
         self.arsg = arsg
         self.command = self.arsg[1]
-        self.subcommand = self.arsg[2]
+        if len(self.arsg) >= 3:
+            self.subcommand = self.arsg[2]
         if self.command == "lexer":
             self.kite_debug_lexer(self.subcommand)
         elif self.command == "readfile":
             self.kite_debug_readfile(self.subcommand)
+        elif self.command == "parser":
+            self.kite_debug_parser()
 
     def kite_debug_lexer(self, filename) -> None:
         file = open(f"src/{filename}", "r").readlines()
-        lexer(file)
+        lexer(file, filename, debug=True)
+
+    def kite_debug_parser(self) -> None:
+        Parser()
 
     def kite_debug_readfile(self, filename) -> None:
         file = open(f"src/{filename}", "r").readlines()

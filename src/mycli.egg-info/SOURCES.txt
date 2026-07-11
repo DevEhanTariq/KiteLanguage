@@ -3,6 +3,8 @@ src/mycli/__init__.py
 src/mycli/commands.py
 src/mycli/lexer.py
 src/mycli/main.py
+src/mycli/parser.py
+src/mycli/tokens.py
 src/mycli.egg-info/PKG-INFO
 src/mycli.egg-info/SOURCES.txt
 src/mycli.egg-info/dependency_links.txt

@@ -44,7 +44,8 @@ class lexer:
             line = line.replace("rust<<", " rust<< ")
             line = line.replace("asm<<", " asm<< ")
             line = line.replace(">>", " >> ")
-            line += " ; "
+            if (not "func" in line) and (not "if" in line) and (not "else" in line) and (not "elif" in line):
+                line += " ; "
             newfile.append(line)
 
         newfile.append(" <END> ")

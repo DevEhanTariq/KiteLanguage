@@ -11,13 +11,15 @@ class kite_build:
         self.dir = os.getcwd()
         self.arsg = arsg
         self.command = self.arsg[1]
-        self.subcommand = self.arsg[2]
+        self.subcommand = None
         if self.command == "init":
+            self.subcommand = self.arsg[2]
             self.kite_build_init(self.subcommand)
         elif self.command == "remove":
+            self.subcommand = self.arsg[2]
             self.kite_build_remove(self.subcommand)
         elif self.command == "compile":
-            self.kite_build_compile(self.subcommand)
+            self.kite_build_compile()
 
     def kite_build_remove(self, project_name) -> None:
         self.project_name = project_name
@@ -42,10 +44,14 @@ class kite_build:
             pass
         print("===========================\nKite project created!")
 
-    def kite_build_compile(self, filename) -> None:
-        file = open(f"src/{filename}", "r").readlines()
-        lexer(file, filename)
-        Parser()
+    def kite_build_compile(self) -> None:
+        files = os.listdir("src")
+        for f in files:
+            file = open(f"src/{f}", "r").readlines()
+            lexer(file, f)
+        parse = Parser()
+        parse.compileRust()
+
 
 class kite_debug:
     def __init__(self, arsg) -> None:
@@ -65,7 +71,7 @@ class kite_debug:
         lexer(file, filename, debug=True)
 
     def kite_debug_parser(self) -> None:
-        Parser()
+        Parser("hey")
 
     def kite_debug_readfile(self, filename) -> None:
         file = open(f"src/{filename}", "r").readlines()

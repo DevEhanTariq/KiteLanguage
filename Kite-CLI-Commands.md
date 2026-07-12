@@ -8,7 +8,12 @@
 
 - First you need to be in your projects folder, then type `kite build remove (project name)`, into the terminal to delete your Kite project.
 
+### Compiling a Kite project:
+
+- First you need to be in your projects folder, then type `kite build compile`, into the terminal to compile your Kite project.
+
 ### Debug commands in Kite:
 
 - `kite debug readlines (filename.ki)`, shows you what the compiler sees, in the terminal.
 - `kite debug lexer (filename.ki)`, creates a `.txt` file in your `build/tokens` folder, containing the outputted tokens from the lexer.
+- `kite debug parser`, converts all `.ki` files in `src`, to `.rs`.

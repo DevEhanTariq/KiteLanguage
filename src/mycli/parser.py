@@ -1,17 +1,27 @@
 import os
+import subprocess
 import ast
 
 files = os.listdir("build/tokens")
 tokenlist = files.copy()
 
 defaultFunctions = """
+#![allow(warnings)]
+
+use std::fmt::Debug;
+
 fn print(text: &str) {
-    println!("{}", text)
+    println!("{}", text);
+}
+
+fn str<T: Debug>(var: T) -> String {
+    format!("{:?}", var)
 }
 """
 
 class Parser:
     def __init__(self):
+        self.dir = os.getcwd()
         self.files = []
         for file in tokenlist:
             with open(f"build/tokens/{file}", "r") as f:
@@ -44,4 +54,14 @@ class Parser:
                     elif token[0] == "IDENTIFIER":
                         if token[1] != ":":
                             f.write(token[1])
+
+    def compileRust(self):
+        subprocess.run(
+            ["cargo", "build"],
+            cwd=self.dir + f"/build/cargo/cargo_project"
+        )
+        subprocess.run(
+            ["./cargo_project"],
+            cwd=self.dir + f"/build/cargo/cargo_project/target/debug"
+        )
 
